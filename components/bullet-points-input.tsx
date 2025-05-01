@@ -30,10 +30,10 @@ export function BulletPointsInput() {
           {/* Text area for entering bullet points */}
           <Textarea
             name="bulletPoints"
-            placeholder="• Need to schedule a meeting
+            placeholder={`• Need to schedule a meeting
 • Discuss Q2 results
 • Request budget approval
-• Follow up on previous action items"
+• Follow up on previous action items`}
             className="min-h-[200px]"
             aria-label="Bullet points"
           />
