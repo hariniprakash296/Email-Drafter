@@ -1,16 +1,11 @@
 "use server"
 
-// Import zod for form validation
 import { z } from "zod"
 
-// Define the schema for form validation
-// This ensures the bulletPoints field is not empty
 const formSchema = z.object({
   bulletPoints: z.string().min(1, "Bullet points are required"),
 })
 
-// Define the type for the form state
-// This includes potential errors, success/error messages, and the generated email
 export type FormState = {
   errors?: {
     bulletPoints?: string[]
@@ -26,8 +21,6 @@ export type FormState = {
  */
 function removeMarkdown(text: string): string {
   // Remove bold markdown (**text**) using regex
-  // The pattern matches any text between double asterisks and captures it
-  // The replacement keeps only the captured text without the asterisks
   return text.replace(/\*\*(.*?)\*\*/g, "$1")
 }
 
@@ -67,15 +60,38 @@ export async function draftEmail(prevState: FormState, formData: FormData): Prom
         model: "deepseek-chat",
         messages: [
           {
-            // System message defines the behavior of the AI
+            // Updated system message to increase professionalism while maintaining style elements
             role: "system",
-            content:
-              "You are an assistant that drafts professional emails based on bullet points. Format the email properly with greeting, body paragraphs, and closing. Make it sound professional but friendly. DO NOT use markdown formatting like ** for bold text or * for italic text. Use plain text only.",
+            content: `You are drafting professional business emails that balance my personal style with appropriate formality. 
+
+My writing style characteristics to incorporate:
+1. Clear and direct communication
+2. Occasional use of contractions (I'm, don't, can't) where appropriate
+3. Simple explanations without unnecessary jargon
+4. Occasional questions to engage the reader
+
+Professional elements to emphasize:
+1. Always use complete, grammatically correct sentences
+2. Maintain a professional tone suitable for business communication
+3. Ensure proper paragraph structure with clear topic sentences
+4. Include appropriate transitions between ideas
+5. Use proper business email format with formal greeting and closing
+6. Ensure each point from the bullet list is fully developed into complete thoughts
+7. Balance conciseness with sufficient detail and context
+
+The email should be structured with:
+- A professional greeting (Dear [Name/Team], Hello [Name/Team])
+- A brief introduction stating the purpose of the email
+- Body paragraphs that fully address each bullet point with complete sentences
+- A clear conclusion or call to action
+- A professional closing (Best regards, Thank you and Warmest regards)
+
+Don't use markdown formatting like ** for bold text or * for italic text. Use plain text only.`,
           },
           {
             // User message contains the bullet points
             role: "user",
-            content: `Draft a professional email based on these bullet points:\n${bulletPoints}`,
+            content: `Draft a professional business email based on these bullet points:\n${bulletPoints}`,
           },
         ],
         stream: false, // We want the complete response at once, not streamed
