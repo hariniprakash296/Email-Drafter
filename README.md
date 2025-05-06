@@ -8,10 +8,7 @@ A Deepseek‑powered tool to help me learn to write professional emails phrasing
 
 ## 🔍 What it does:
 
-**Email Draft Assistant** turns your raw bullet points into polished, ready‑to‑send emails—while teaching you how to sound like *you*.  
-- **Learn by example:** See AI‑generated drafts in your voice.  
-- **Iterate fast:** Tweak prompts, refine tone, build muscle memory.  
-- **Own your style:** Develop a personal “email signature” that’s unmistakably yours.
+**Email Draft Assistant** turns your raw bullet points into polished, ready‑to‑send emails—while teaching you how to sound like *you*.  .
 
 ## 🚀 Key Features
 
